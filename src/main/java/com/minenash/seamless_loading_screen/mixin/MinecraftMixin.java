@@ -45,10 +45,13 @@ public abstract class MinecraftMixin {
     private void screenshotBeforeClosing(CallbackInfo ci) {
         if (!seamless_loading_screen$stopping && level != null) {
             seamless_loading_screen$stopping = true;
-            OnLeaveHelper.beginScreenshotTask(() -> OnLeaveHelper.afterSaving(this::stop));
+            OnLeaveHelper.beginScreenshotTask(() -> {});
         }
 
-        // Closing the window calls stop() every frame, so keep the game running until the screenshot is on disk
-        if (OnLeaveHelper.isBusy()) ci.cancel();
+        // Keep the game running until the screenshot is on disk, then stop for real
+        if (OnLeaveHelper.isBusy()) {
+            OnLeaveHelper.stopWhenDone();
+            ci.cancel();
+        }
     }
 }

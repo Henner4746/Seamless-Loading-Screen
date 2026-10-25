@@ -38,6 +38,7 @@ public class OnLeaveHelper {
     private static Runnable onceFinished = () -> {};
     // The image only comes back from the GPU a few frames after the capture, closing the game has to wait for it
     private static CompletableFuture<Void> saving = CompletableFuture.completedFuture(null);
+    private static boolean stopWhenDone = false;
 
     /**
      * Whether this world session already has its screenshot, so later disconnect paths don't take another one.
@@ -101,6 +102,11 @@ public class OnLeaveHelper {
             LOGGER.warn("[SeamlessLoadingScreen]: No frame was rendered in time, leaving without a screenshot");
             finish();
         }
+
+        if (stopWhenDone && !isBusy()) {
+            stopWhenDone = false;
+            Minecraft.getInstance().stop();
+        }
     }
 
     /**
@@ -111,10 +117,10 @@ public class OnLeaveHelper {
     }
 
     /**
-     * Runs the task on the main thread once the last screenshot is on disk, or failed to get there in time.
+     * Stops the game once the screenshot is on disk, or failed to get there in time.
      */
-    public static void afterSaving(Runnable task) {
-        saving.whenComplete((result, error) -> Minecraft.getInstance().execute(task));
+    public static void stopWhenDone() {
+        stopWhenDone = true;
     }
 
     public static void resetForNewSession() {
