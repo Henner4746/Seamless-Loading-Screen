@@ -14,6 +14,7 @@ import org.slf4j.Logger;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.CompletableFuture;
@@ -139,7 +140,7 @@ public class OnLeaveHelper {
     private static void save(NativeImage image, Path file, Path iconFile) {
         try (image) {
             Files.createDirectories(file.getParent());
-            image.writeToFile(file);
+            writeAtomically(image, file);
 
             if (SeamlessLoadingScreenConfig.get().archiveScreenshots) {
                 String name = file.getFileName().toString();
@@ -171,7 +172,14 @@ public class OnLeaveHelper {
 
         try (NativeImage icon = new NativeImage(64, 64, false)) {
             image.resizeSubRectTo(x, y, width, height, icon);
-            icon.writeToFile(iconFile);
+            writeAtomically(icon, iconFile);
         }
+    }
+
+    // Rejoining right away must never read a half written file, so write next to it and swap it in
+    private static void writeAtomically(NativeImage image, Path file) throws IOException {
+        Path temp = file.resolveSibling(file.getFileName() + ".tmp");
+        image.writeToFile(temp);
+        Files.move(temp, file, StandardCopyOption.REPLACE_EXISTING, StandardCopyOption.ATOMIC_MOVE);
     }
 }
