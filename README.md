@@ -31,6 +31,8 @@ Screenshots are saved in `.minecraft/screenshots/worlds/`, with one folder each 
 - The screenshot is also taken when you close the game window while in a world, not just when you quit through the pause menu.
 - Screenshots are taken at the window's resolution, so the resolution setting is gone.
 - Worlds opened by other mods now get their screenshot too, not only those opened from the world list or Quick Play.
+- The "Server's Default Display Mode" setting now applies to servers that have no mode stored yet. Before, it had no effect and every server started out enabled.
+- Chunks that have not started loading are see-through on the loading screen's chunk map again, and the server option button no longer leaves a gap above *Done*.
 - Fixed the screenshot folder being nested twice (`screenshots/worlds/screenshots/worlds`). Existing screenshots are moved over automatically.
 
 ## Building

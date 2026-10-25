@@ -18,8 +18,9 @@ public abstract class ServerDataMixin implements ServerInfoExtension {
     @Shadow
     public String ip;
 
+    // Servers without a stored mode follow the default from the settings
     @Unique
-    private DisplayMode seamless_loading_screen$displayMode = DisplayMode.ENABLED;
+    private DisplayMode seamless_loading_screen$displayMode = SeamlessLoadingScreenConfig.get().defaultServerMode;
 
     @Inject(method = "read", at = @At("RETURN"))
     private static void deserialize(CompoundTag tag, CallbackInfoReturnable<ServerData> callback) {

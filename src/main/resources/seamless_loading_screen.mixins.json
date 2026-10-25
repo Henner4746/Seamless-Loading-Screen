@@ -10,6 +10,7 @@
     "CreateWorldScreenMixin",
     "GameRendererMixin",
     "GuiMixin",
+    "LevelLoadingScreenMixin",
     "MinecraftMixin",
     "ScreenMixin",
     "WorldOpenFlowsMixin",

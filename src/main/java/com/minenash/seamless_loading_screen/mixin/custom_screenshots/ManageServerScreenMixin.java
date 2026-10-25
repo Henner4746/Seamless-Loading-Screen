@@ -20,9 +20,9 @@ import java.util.Locale;
 
 @Mixin(ManageServerScreen.class)
 public abstract class ManageServerScreenMixin extends Screen {
-    // Room for the display mode button below the resource pack button
+    // Room for the display mode button below the resource pack button, with the usual 4 pixel gap
     @Unique
-    private static final int SHIFT = 22;
+    private static final int SHIFT = 6;
 
     @Shadow
     @Final

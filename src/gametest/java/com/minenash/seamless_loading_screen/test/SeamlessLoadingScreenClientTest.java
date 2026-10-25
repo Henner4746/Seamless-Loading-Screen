@@ -36,6 +36,7 @@ public class SeamlessLoadingScreenClientTest implements FabricClientGameTest {
     private static void testServerDisplayModeIsStored(ClientGameTestContext context) {
         context.runOnClient(client -> {
             ServerData server = new ServerData("Test", "localhost", ServerData.Type.OTHER);
+            check(((ServerInfoExtension) server).getStoredDisplayMode() == SeamlessLoadingScreenConfig.get().defaultServerMode, "a new server does not use the default display mode from the settings");
             ((ServerInfoExtension) server).setDisplayMode(DisplayMode.FREEZE);
 
             CompoundTag tag = server.write();
