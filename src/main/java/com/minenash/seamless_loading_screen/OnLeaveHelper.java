@@ -134,8 +134,9 @@ public class OnLeaveHelper {
         Runnable task = onceFinished;
         onceFinished = () -> {};
 
-        // Never leave the world in the middle of rendering a frame
-        Minecraft.getInstance().execute(task);
+        // Never leave the world in the middle of rendering a frame. execute() would run it right here on the render
+        // thread, and halting the integrated server from inside a frame can deadlock
+        Minecraft.getInstance().schedule(task);
     }
 
     private static Path getWorldIconFile() {
