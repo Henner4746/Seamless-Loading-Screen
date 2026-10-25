@@ -9,6 +9,9 @@
       "com.minenash.seamless_loading_screen.test.SeamlessLoadingScreenClientTest"
     ]
   },
+  "mixins": [
+    "seamless_loading_screen_test.mixins.json"
+  ],
   "depends": {
     "seamless_loading_screen": "*"
   }
