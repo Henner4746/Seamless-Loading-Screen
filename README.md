@@ -2,6 +2,8 @@
 
 An unofficial continuation of [Seamless Loading Screen](https://github.com/Minenash/Seamless-Loading-Screen) by Minenash, ported to Minecraft 26.2 and 26.3 (Fabric).
 
+**Download:** [Modrinth](https://modrinth.com/mod/seamlessloadingscreen-continued) or [GitHub Releases](https://github.com/Henner4746/Seamless-Loading-Screen/releases)
+
 When you leave a world or server, the mod takes a screenshot of what you were looking at. The next time you join, that screenshot replaces the loading screen and fades into the live world once the chunks have loaded.
 
 A video of the original mod:
